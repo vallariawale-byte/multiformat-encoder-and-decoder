@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<textarea id="txt" rows="8" cols="60" placeholder="Enter text"></textarea><br><br>
+
+<select id="mode">
+    <option value="b64e">Base64 Encode</option>
+    <option value="b64d">Base64 Decode</option>
+    <option value="urle">URL Encode</option>
+    <option value="urld">URL Decode</option>
+    <option value="hexe">Hex Encode</option>
+    <option value="hexd">Hex Decode</option>
+</select>
+
+<button onclick="run()">Run</button>
+
+<pre id="out"></pre>
+
+<script>
+function run() {
+    let t = document.getElementById("txt").value;
+    let m = document.getElementById("mode").value;
+    let r = "";
+
+    try {
+        switch (m) {
+            case "b64e":
+                r = btoa(unescape(encodeURIComponent(t)));
+                break;
+
+            case "b64d":
+                r = decodeURIComponent(escape(atob(t)));
+                break;
+
+            case "urle":
+                r = encodeURIComponent(t);
+                break;
+
+            case "urld":
+                r = decodeURIComponent(t);
+                break;
+
+            case "hexe":
+                r = [...t].map(c =>
+                    c.charCodeAt(0).toString(16).padStart(2, "0")
+                ).join("");
+                break;
+
+            case "hexd":
+                r = t.match(/.{1,2}/g)
+                    .map(h => String.fromCharCode(parseInt(h,16)))
+                    .join("");
+                break;
+        }
+    } catch(e) {
+        r = "Error: " + e.message;
+    }
+
+    document.getElementById("out").textContent = r;
+}
+</script>
+
+</body>
+</html>
