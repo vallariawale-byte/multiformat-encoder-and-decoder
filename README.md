@@ -34,7 +34,7 @@ This project also helped me learn how professional software projects are documen
 
 # 🛠️ Technologies Used
 
-- Python 3.x
+- html
 - VS Code
 - Git
 - GitHub
